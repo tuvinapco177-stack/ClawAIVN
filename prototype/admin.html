@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EduSharePro - Trang Quản Trị Hệ Thống</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Floating Navigation Bar -->
+  <div class="navbar-wrapper">
+    <nav class="navbar container flex align-center justify-between">
+      <a href="index.html" class="nav-logo">
+        <svg xmlns="http://www.w3.org/2000/svg" style="width: 28px; height: 28px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+        </svg>
+        EduSharePro <span style="font-size: 0.9rem; background-color: var(--color-primary-light); color: var(--color-primary); padding: 4px 8px; border-radius: var(--radius-sm); margin-left: 8px;">ADMIN</span>
+      </a>
+      
+      <div class="nav-auth" id="header-auth-container">
+        <!-- Đăng nhập / Đăng xuất tự động render bởi app.js -->
+      </div>
+    </nav>
+  </div>
+
+  <div class="nav-spacer"></div>
+
+  <!-- Admin Main Layout -->
+  <div class="container admin-layout">
+    <!-- Admin Sidebar -->
+    <aside class="admin-sidebar">
+      <ul class="admin-nav">
+        <li>
+          <a href="#" class="admin-nav-link active" onclick="switchAdminSection('docs')">
+            <svg xmlns="http://www.w3.org/2000/svg" style="width: 20px; height: 20px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            Phê Duyệt Học Liệu
+          </a>
+        </li>
+        <li>
+          <a href="#" class="admin-nav-link" onclick="switchAdminSection('stats')">
+            <svg xmlns="http://www.w3.org/2000/svg" style="width: 20px; height: 20px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 002 2h2a2 2 0 002-2z" />
+            </svg>
+            Báo Cáo Thống Kê
+          </a>
+        </li>
+        <li>
+          <a href="#" class="admin-nav-link" onclick="switchAdminSection('categories')">
+            <svg xmlns="http://www.w3.org/2000/svg" style="width: 20px; height: 20px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+            </svg>
+            Quản Lý Danh Mục
+          </a>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- Admin Main Content Area -->
+    <main class="admin-main">
+      <div id="access-denied-message" style="display: none; text-align: center; padding: 100px 0;">
+        <svg xmlns="http://www.w3.org/2000/svg" style="width: 80px; height: 80px; color: #ef4444; margin-bottom: 24px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+        </svg>
+        <h2 style="font-size: 2rem; margin-bottom: 16px;">Từ Chối Truy Cập</h2>
+        <p style="color: var(--color-text-muted); max-width: 500px; margin: 0 auto 24px auto;">Vùng quản trị này chỉ dành cho tài khoản Admin hoặc Moderator đã đăng nhập. Bạn vui lòng sử dụng tài khoản phù hợp.</p>
+        <button class="btn btn-primary btn-sm" data-modal="login-modal">Đăng nhập Admin</button>
+      </div>
+
+      <div id="admin-content-area">
+        <!-- 1. Phân hệ Phê duyệt Học liệu -->
+        <section id="section-docs">
+          <h2 style="font-size: 2.2rem; margin-bottom: 8px;">Duyệt Học Liệu Tải Lên</h2>
+          <p style="color: var(--color-text-muted); margin-bottom: 32px;">Xem xét và phê duyệt hoặc từ chối các học liệu do người dùng đóng góp lên hệ thống.</p>
+          
+          <div class="admin-table-container">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Tài liệu</th>
+                  <th>Chuyên mục</th>
+                  <th>Người đăng</th>
+                  <th>Trạng thái</th>
+                  <th style="text-align: right;">Hành động</th>
+                </tr>
+              </thead>
+              <tbody id="admin-docs-table-body">
+                <!-- Render từ database bằng JS -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 2. Phân hệ Báo cáo Thống kê -->
+        <section id="section-stats" style="display: none;">
+          <h2 style="font-size: 2.2rem; margin-bottom: 8px;">Báo Cáo Hoạt Động</h2>
+          <p style="color: var(--color-text-muted); margin-bottom: 32px;">Biểu đồ thống kê lượt tải, lượt truy cập website EduSharePro.</p>
+          
+          <div class="admin-stats-grid">
+            <div class="admin-stat-card">
+              <div style="font-size: 0.9rem; color: var(--color-text-muted);">Tổng Tài Liệu Đã Duyệt</div>
+              <div style="font-size: 2.2rem; font-weight: 700; color: var(--color-primary);" id="stat-total-approved">0</div>
+            </div>
+            <div class="admin-stat-card">
+              <div style="font-size: 0.9rem; color: var(--color-text-muted);">Tài Liệu Đang Chờ Duyệt</div>
+              <div style="font-size: 2.2rem; font-weight: 700; color: #d97706;" id="stat-total-pending">0</div>
+            </div>
+            <div class="admin-stat-card">
+              <div style="font-size: 0.9rem; color: var(--color-text-muted);">Tổng Lượt Tải Học Liệu</div>
+              <div style="font-size: 2.2rem; font-weight: 700; color: #22c55e;" id="stat-total-downloads">0</div>
+            </div>
+            <div class="admin-stat-card">
+              <div style="font-size: 0.9rem; color: var(--color-text-muted);">Tổng Lượt Xem Tài Liệu</div>
+              <div style="font-size: 2.2rem; font-weight: 700; color: #6366f1;" id="stat-total-views">0</div>
+            </div>
+          </div>
+          
+          <div class="admin-table-container" style="padding: 24px;">
+            <h3 style="margin-bottom: 16px;">Top Tài Liệu Được Quan Tâm Nhất</h3>
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Tài liệu</th>
+                  <th>Lượt xem</th>
+                  <th>Lượt tải</th>
+                  <th>Tỷ lệ tải / xem</th>
+                </tr>
+              </thead>
+              <tbody id="admin-top-docs-body">
+                <!-- Render từ JS -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 3. Phân hệ Quản lý Danh mục -->
+        <section id="section-categories" style="display: none;">
+          <h2 style="font-size: 2.2rem; margin-bottom: 8px;">Quản Lý Danh Mục Học Liệu</h2>
+          <p style="color: var(--color-text-muted); margin-bottom: 32px;">Thêm mới hoặc sửa đổi các chuyên mục môn học, cấp học chính hiển thị ngoài trang chủ.</p>
+          
+          <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 32px;">
+            <div class="sidebar-box">
+              <h3 style="margin-bottom: 16px;">Thêm Danh Mục Mới</h3>
+              <form id="add-category-form">
+                <div class="form-group">
+                  <label>Tên danh mục</label>
+                  <input type="text" name="catName" placeholder="Ví dụ: Cao học..." required>
+                </div>
+                <div class="form-group">
+                  <label>Mô tả ngắn</label>
+                  <input type="text" name="catDesc" placeholder="Mô tả danh mục học liệu..." required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Tạo Mới</button>
+              </form>
+            </div>
+            
+            <div class="admin-table-container">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Tên danh mục</th>
+                    <th>Mô tả</th>
+                    <th style="text-align: right;">Hành động</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td style="font-weight:700;">Tiểu học (Lớp 1-5)</td>
+                    <td>Học liệu cho học sinh tiểu học</td>
+                    <td style="text-align: right;"><button class="btn btn-secondary btn-sm" onclick="showToast('Tính năng sửa/xóa (Giả lập)')">Sửa</button></td>
+                  </tr>
+                  <tr>
+                    <td style="font-weight:700;">THCS (Lớp 6-9)</td>
+                    <td>Tài liệu cho học sinh THCS</td>
+                    <td style="text-align: right;"><button class="btn btn-secondary btn-sm" onclick="showToast('Tính năng sửa/xóa (Giả lập)')">Sửa</button></td>
+                  </tr>
+                  <tr>
+                    <td style="font-weight:700;">THPT (Lớp 10-12)</td>
+                    <td>Tài liệu ôn thi tốt nghiệp THPT</td>
+                    <td style="text-align: right;"><button class="btn btn-secondary btn-sm" onclick="showToast('Tính năng sửa/xóa (Giả lập)')">Sửa</button></td>
+                  </tr>
+                  <tr>
+                    <td style="font-weight:700;">Đại học & Cao đẳng</td>
+                    <td>Giáo trình, bài giảng bậc đại học</td>
+                    <td style="text-align: right;"><button class="btn btn-secondary btn-sm" onclick="showToast('Tính năng sửa/xóa (Giả lập)')">Sửa</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <!-- Rejection Reason Modal -->
+  <div class="modal-overlay" id="reject-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Từ chối tài liệu</h3>
+        <button class="close-btn">&times;</button>
+      </div>
+      <form id="reject-form">
+        <input type="hidden" id="reject-doc-id" value="">
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Lý do từ chối phê duyệt</label>
+            <textarea id="reject-reason" rows="3" placeholder="Nhập lý do (ví dụ: Tài liệu mờ, vi phạm bản quyền)..." required></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-close-modal">Hủy</button>
+          <button type="submit" class="btn btn-danger">Xác nhận Từ chối</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Copied Login modal for auth fallback -->
+  <div class="modal-overlay" id="login-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Đăng nhập Admin</h3>
+        <button class="close-btn">&times;</button>
+      </div>
+      <form id="login-form">
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label>Mật khẩu</label>
+            <input type="password" name="password" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-close-modal">Hủy</button>
+          <button type="submit" class="btn btn-primary">Đăng nhập</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    // Kiểm tra quyền Admin/Mod khi tải trang
+    function checkAdminAccess() {
+      const user = State.getCurrentUser();
+      const area = document.getElementById('admin-content-area');
+      const denied = document.getElementById('access-denied-message');
+      
+      if (user && (user.role === 'admin' || user.role === 'moderator')) {
+        area.style.display = 'block';
+        denied.style.display = 'none';
+        renderAdminDocsTable();
+        calculateStats();
+      } else {
+        area.style.display = 'none';
+        denied.style.display = 'block';
+      }
+    }
+
+    // Chuyển phân hệ quản trị sidebar
+    function switchAdminSection(sectionName) {
+      document.querySelectorAll('.admin-nav-link').forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('onclick') && link.getAttribute('onclick').includes(sectionName)) {
+          link.classList.add('active');
+        }
+      });
+
+      document.getElementById('section-docs').style.display = sectionName === 'docs' ? 'block' : 'none';
+      document.getElementById('section-stats').style.display = sectionName === 'stats' ? 'block' : 'none';
+      document.getElementById('section-categories').style.display = sectionName === 'categories' ? 'block' : 'none';
+      
+      if (sectionName === 'stats') {
+        renderStatsTable();
+      }
+    }
+
+    // Render danh sách tài liệu phê duyệt trong bảng admin
+    function renderAdminDocsTable() {
+      const tableBody = document.getElementById('admin-docs-table-body');
+      if (!tableBody) return;
+
+      const docs = State.getDocuments();
+
+      if (docs.length === 0) {
+        tableBody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 20px;">Không có tài liệu nào trong hệ thống.</td></tr>';
+        return;
+      }
+
+      tableBody.innerHTML = docs.map(doc => {
+        let statusBadge = '';
+        if (doc.status === 'approved') statusBadge = '<span class="badge-status badge-approved">Đã duyệt</span>';
+        else if (doc.status === 'pending') statusBadge = '<span class="badge-status badge-pending">Chờ duyệt</span>';
+        else statusBadge = `<span class="badge-status badge-rejected" title="Lý do: ${doc.rejection_reason || 'Không rõ'}">Từ chối</span>`;
+
+        let actionButtons = '';
+        if (doc.status === 'pending') {
+          actionButtons = `
+            <button class="btn btn-primary btn-sm" onclick="approveDocument('${doc.id}')" style="background-color:#22c55e;">Duyệt</button>
+            <button class="btn btn-danger btn-sm" onclick="openRejectModal('${doc.id}')" style="margin-left: 6px;">Từ chối</button>
+          `;
+        } else {
+          actionButtons = `<span style="font-size:0.85rem;color:var(--color-text-muted);">Đã xử lý</span>`;
+        }
+
+        return `
+          <tr>
+            <td style="font-weight: 700; color: var(--color-text-main);">
+              <a href="document.html?id=${doc.id}" target="_blank">${doc.title}</a>
+              <div style="font-size: 0.8rem; color: var(--color-text-muted); font-weight: normal; margin-top: 4px;">Định dạng: ${doc.fileType.toUpperCase()} | Kích thước: ${doc.fileSize}</div>
+            </td>
+            <td>${doc.category}</td>
+            <td>${doc.author}</td>
+            <td>${statusBadge}</td>
+            <td style="text-align: right;">${actionButtons}</td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // Hành động Phê duyệt
+    function approveDocument(id) {
+      const docs = State.getDocuments();
+      const doc = docs.find(d => d.id === id);
+      if (doc) {
+        doc.status = 'approved';
+        State.saveDocuments(docs);
+        showToast("Phê duyệt học liệu thành công! Học liệu đã xuất hiện ngoài trang chủ.", "success");
+        renderAdminDocsTable();
+        calculateStats();
+      }
+    }
+
+    // Mở modal từ chối
+    function openRejectModal(id) {
+      document.getElementById('reject-doc-id').value = id;
+      document.getElementById('reject-reason').value = '';
+      document.getElementById('reject-modal').classList.add('show');
+    }
+
+    // Submit form Từ chối
+    const rejectForm = document.getElementById('reject-form');
+    if (rejectForm) {
+      rejectForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const id = document.getElementById('reject-doc-id').value;
+        const reason = document.getElementById('reject-reason').value.trim();
+        
+        const docs = State.getDocuments();
+        const doc = docs.find(d => d.id === id);
+        if (doc) {
+          doc.status = 'rejected';
+          doc.rejection_reason = reason;
+          State.saveDocuments(docs);
+          
+          showToast("Đã từ chối duyệt học liệu này và gửi lý do tới người đăng.", "success");
+          document.getElementById('reject-modal').classList.remove('show');
+          renderAdminDocsTable();
+          calculateStats();
+        }
+      });
+    }
+
+    // Tính toán số liệu thống kê
+    function calculateStats() {
+      const docs = State.getDocuments();
+      const approved = docs.filter(d => d.status === 'approved').length;
+      const pending = docs.filter(d => d.status === 'pending').length;
+      const totalDownloads = docs.reduce((acc, curr) => acc + curr.downloads, 0);
+      const totalViews = docs.reduce((acc, curr) => acc + curr.views, 0);
+
+      document.getElementById('stat-total-approved').textContent = approved;
+      document.getElementById('stat-total-pending').textContent = pending;
+      document.getElementById('stat-total-downloads').textContent = totalDownloads;
+      document.getElementById('stat-total-views').textContent = totalViews;
+    }
+
+    // Render bảng thống kê Top xem/tải
+    function renderStatsTable() {
+      const docs = State.getDocuments().filter(d => d.status === 'approved');
+      docs.sort((a, b) => b.views - a.views);
+
+      const tableBody = document.getElementById('admin-top-docs-body');
+      if (!tableBody) return;
+
+      if (docs.length === 0) {
+        tableBody.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 20px;">Chưa có tài liệu nào được duyệt để tính toán số liệu.</td></tr>';
+        return;
+      }
+
+      tableBody.innerHTML = docs.slice(0, 5).map(doc => {
+        const ratio = doc.views > 0 ? ((doc.downloads / doc.views) * 100).toFixed(1) + '%' : '0%';
+        return `
+          <tr>
+            <td style="font-weight: 700; color: var(--color-text-main);">${doc.title}</td>
+            <td>${doc.views} lượt xem</td>
+            <td>${doc.downloads} lượt tải</td>
+            <td style="font-weight: 700; color: var(--color-primary);">${ratio}</td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // Xử lý tạo mới danh mục (Giả lập)
+    const addCatForm = document.getElementById('add-category-form');
+    if (addCatForm) {
+      addCatForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const catName = addCatForm.querySelector('[name="catName"]').value;
+        showToast(`Đã tạo danh mục "${catName}" mới thành công (Giả lập)!`, "success");
+        addCatForm.reset();
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      checkAdminAccess();
+    });
+  </script>
+</body>
+</html>

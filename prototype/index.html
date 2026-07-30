@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EduSharePro - Website Chia Sẻ Học Liệu Miễn Phí</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Floating Navigation Bar -->
+  <div class="navbar-wrapper">
+    <nav class="navbar container flex align-center justify-between">
+      <a href="index.html" class="nav-logo">
+        <svg xmlns="http://www.w3.org/2000/svg" style="width: 28px; height: 28px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+        </svg>
+        EduSharePro
+      </a>
+      
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link active">Trang chủ</a></li>
+        <li><a href="#" class="nav-link" onclick="filterCategory('tieu-hoc')">Tiểu học</a></li>
+        <li><a href="#" class="nav-link" onclick="filterCategory('thcs')">THCS</a></li>
+        <li><a href="#" class="nav-link" onclick="filterCategory('thpt')">THPT</a></li>
+        <li><a href="#" class="nav-link" onclick="filterCategory('dai-hoc')">Đại học</a></li>
+      </ul>
+
+      <div class="nav-search">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+        <input type="text" id="navbar-search-input" placeholder="Tìm tài liệu, giáo án...">
+      </div>
+
+      <div class="nav-auth" id="header-auth-container">
+        <!-- Đăng nhập / Đăng ký tự động render bởi app.js -->
+      </div>
+    </nav>
+  </div>
+
+  <div class="nav-spacer"></div>
+
+  <!-- Advertisement Banners (Left & Right) -->
+  <div class="ad-banner-left">
+    <div class="ad-banner-title">Quảng cáo</div>
+    <div class="ad-banner-content">
+      <svg xmlns="http://www.w3.org/2000/svg" style="width: 24px; height: 24px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+      </svg>
+      <span>Banner Trái</span>
+      <span style="font-size: 0.75rem; color: var(--color-text-muted); font-weight: normal;">160 x 600</span>
+    </div>
+  </div>
+
+  <div class="ad-banner-right">
+    <div class="ad-banner-title">Quảng cáo</div>
+    <div class="ad-banner-content">
+      <svg xmlns="http://www.w3.org/2000/svg" style="width: 24px; height: 24px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+      </svg>
+      <span>Banner Phải</span>
+      <span style="font-size: 0.75rem; color: var(--color-text-muted); font-weight: normal;">160 x 600</span>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container hero-content">
+      <h1>Học Liệu Mở Cho Mọi Người</h1>
+      <p>Cộng đồng giáo viên và học sinh cùng chia sẻ hàng nghìn giáo án, đề thi thử, slide bài giảng và tài liệu học tập hoàn toàn miễn phí.</p>
+      
+      <form class="hero-search-bar" id="hero-search-form">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+        <input type="text" id="hero-search-input" placeholder="Nhập môn học, lớp học hoặc từ khóa cần tìm...">
+        <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+      </form>
+
+      <div class="flex justify-center" style="gap: 16px; margin-top: 24px;">
+        <button class="btn btn-cta" data-modal="upload-modal">Chia sẻ tài liệu của bạn</button>
+        <a href="#documents-area" class="btn btn-secondary">Khám phá thư viện</a>
+      </div>
+
+      <!-- Social Proof Stats -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number">5,820+</div>
+          <div class="stat-label">Học liệu đã đăng</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">12,450+</div>
+          <div class="stat-label">Thành viên tham gia</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">98,200+</div>
+          <div class="stat-label">Lượt tải về thành công</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories Grid Section -->
+  <section class="categories-section">
+    <div class="container">
+      <h2 class="section-title">Danh Mục Học Liệu Nổi Bật</h2>
+      <p class="section-subtitle">Dễ dàng tìm kiếm tài liệu theo đúng cấp học của bạn</p>
+      
+      <div class="categories-grid">
+        <div class="category-card" onclick="filterCategory('tieu-hoc')">
+          <div class="category-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" style="width: 24px; height: 24px; color: var(--color-primary);" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+            </svg>
+          </div>
+          <h3>Tiểu học (Lớp 1-5)</h3>
+          <p>Giáo án lớp 1-5, bài tập toán tư duy, đề kiểm tra học kỳ tiếng Việt...</p>
+          <span>Khám phá ngay &rarr;</span>
+        </div>
+
+        <div class="category-card" onclick="filterCategory('thcs')">
+          <div class="category-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" style="width: 24px; height: 24px; color: var(--color-primary);" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+            </svg>
+          </div>
+          <h3>THCS (Lớp 6-9)</h3>
+          <p>Tài liệu ôn thi lớp 10, đề học sinh giỏi Toán, Văn, Anh bậc Trung học cơ sở...</p>
+          <span>Khám phá ngay &rarr;</span>
+        </div>
+
+        <div class="category-card" onclick="filterCategory('thpt')">
+          <div class="category-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" style="width: 24px; height: 24px; color: var(--color-primary);" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+            </svg>
+          </div>
+          <h3>THPT (Lớp 10-12)</h3>
+          <p>Đề thi thử THPT Quốc gia môn Toán, Lý, Hóa, chuyên đề nâng cao và tài liệu trắc nghiệm ôn thi đại học...</p>
+          <span>Khám phá ngay &rarr;</span>
+        </div>
+
+        <div class="category-card" onclick="filterCategory('dai-hoc')">
+          <div class="category-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" style="width: 24px; height: 24px; color: var(--color-primary);" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
+            </svg>
+          </div>
+          <h3>Đại học & Cao đẳng</h3>
+          <p>Đề cương triết học, slide giải tích đại số, bài luận tiếng Anh, mẫu đồ án tốt nghiệp đa ngành...</p>
+          <span>Khám phá ngay &rarr;</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Documents Display Section -->
+  <section class="documents-section" id="documents-area">
+    <div class="container">
+      <h2 class="section-title">Thư Viện Học Liệu Tải Nhiều</h2>
+      <p class="section-subtitle">Những học liệu được đánh giá cao và được biên soạn công phu nhất</p>
+      
+      <div class="tab-nav">
+        <button class="tab-btn active" id="tab-new" onclick="switchDocTab('new')">Mới Cập Nhật</button>
+        <button class="tab-btn" id="tab-top" onclick="switchDocTab('top')">Tải Nhiều Nhất</button>
+      </div>
+
+      <div class="documents-grid" id="homepage-docs-grid">
+        <!-- Render động qua JavaScript -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Upload CTA Banner -->
+  <section class="cta-banner">
+    <div class="container cta-banner-content">
+      <h2>Chia Sẻ Tài Liệu - Kiến Tạo Tương Lai</h2>
+      <p>Mỗi tài liệu bạn chia sẻ sẽ là một bước đệm giúp các thế hệ học sinh tiếp sau dễ dàng vượt qua các kỳ thi và tích lũy tri thức.</p>
+      <button class="btn btn-cta" data-modal="upload-modal">Đăng tải học liệu ngay</button>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <h3 class="nav-logo" style="color: white; margin-bottom: 16px;">EduSharePro</h3>
+        <p>Thư viện chia sẻ học liệu và tài liệu giáo dục trực tuyến chất lượng cao, hoàn toàn miễn phí cho cộng đồng học sinh, sinh viên và giáo viên Việt Nam.</p>
+      </div>
+      <div class="footer-col">
+        <h3>Liên kết</h3>
+        <ul class="footer-links">
+          <li><a href="index.html">Trang chủ</a></li>
+          <li><a href="#" onclick="filterCategory('tieu-hoc')">Tiểu học</a></li>
+          <li><a href="#" onclick="filterCategory('thcs')">THCS</a></li>
+          <li><a href="#" onclick="filterCategory('thpt')">THPT</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Hỗ trợ</h3>
+        <ul class="footer-links">
+          <li><a href="#">Điều khoản sử dụng</a></li>
+          <li><a href="#">Báo cáo bản quyền</a></li>
+          <li><a href="#">Hướng dẫn đóng góp</a></li>
+          <li><a href="#">Liên hệ Admin</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Văn phòng EduShare</h3>
+        <p>Email: hotro@edushare.vn</p>
+        <p>Điện thoại: 0987.654.321</p>
+        <p>Địa chỉ: Tầng 5, Tòa nhà Tri Thức, Quận Cầu Giấy, Hà Nội</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 EduSharePro. Thiết kế giao diện chuyên nghiệp bởi Ui-ux-pro-max.</p>
+    </div>
+  </footer>
+
+  <!-- Login Modal -->
+  <div class="modal-overlay" id="login-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Đăng nhập</h3>
+        <button class="close-btn">&times;</button>
+      </div>
+      <form id="login-form">
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" name="email" placeholder="Nhập email của bạn..." required>
+          </div>
+          <div class="form-group">
+            <label>Mật khẩu</label>
+            <input type="password" name="password" placeholder="Nhập mật khẩu..." required>
+          </div>
+          <div style="font-size: 0.85rem; text-align: right; margin-bottom: 12px;">
+            <a href="#">Quên mật khẩu?</a>
+          </div>
+          <div style="font-size: 0.85rem; color: var(--color-text-muted);">
+            Tài khoản Admin thử nghiệm: <b>admin@edushare.vn</b> / <b>admin123</b><br>
+            Tài khoản Member thử nghiệm: <b>user@edushare.vn</b> / <b>user123</b>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-close-modal">Hủy</button>
+          <button type="submit" class="btn btn-primary">Đăng nhập</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Signup Modal -->
+  <div class="modal-overlay" id="signup-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Đăng ký thành viên</h3>
+        <button class="close-btn">&times;</button>
+      </div>
+      <form id="signup-form">
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Họ và tên</label>
+            <input type="text" name="fullName" placeholder="Ví dụ: Nguyễn Văn A..." required>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" name="email" placeholder="Nhập địa chỉ email..." required>
+          </div>
+          <div class="form-group">
+            <label>Mật khẩu</label>
+            <input type="password" name="password" placeholder="Tối thiểu 6 ký tự..." required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-close-modal">Hủy</button>
+          <button type="submit" class="btn btn-cta">Đăng ký ngay</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Upload Modal -->
+  <div class="modal-overlay" id="upload-modal">
+    <div class="modal-content" style="max-width: 600px;">
+      <div class="modal-header">
+        <h3>Đăng tải học liệu mới</h3>
+        <button class="close-btn">&times;</button>
+      </div>
+      <form id="upload-form">
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Tiêu đề học liệu</label>
+            <input type="text" name="title" placeholder="Nhập tiêu đề rõ ràng (ví dụ: Đề thi học kỳ 1 môn Toán lớp 9)..." required>
+          </div>
+          <div class="form-group">
+            <label>Danh mục</label>
+            <select name="category" required>
+              <option value="Tiểu học (Lớp 1-5)">Tiểu học (Lớp 1-5)</option>
+              <option value="THCS (Lớp 6-9)">THCS (Lớp 6-9)</option>
+              <option value="THPT (Lớp 10-12)">THPT (Lớp 10-12)</option>
+              <option value="Đại học & Cao đẳng">Đại học & Cao đẳng</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Định dạng tệp</label>
+            <select name="fileType" required>
+              <option value="pdf">PDF</option>
+              <option value="docx">Word (.docx)</option>
+              <option value="pptx">Powerpoint (.pptx)</option>
+              <option value="xlsx">Excel (.xlsx)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Mô tả nội dung</label>
+            <textarea name="description" rows="3" placeholder="Mô tả tóm tắt nội dung tài liệu học tập..." required></textarea>
+          </div>
+          <div class="form-group">
+            <label>Tệp tin tài liệu</label>
+            <div class="dropzone" id="upload-dropzone">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+              </svg>
+              <p style="font-weight: 700;">Nhấp để chọn tệp tin tải lên</p>
+              <p style="font-size: 0.8rem; color: var(--color-text-muted);">PDF, DOCX, PPTX, XLSX kích thước tối đa 50MB</p>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-close-modal">Hủy</button>
+          <button type="submit" class="btn btn-cta">Gửi phê duyệt</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    let activeTab = 'new';
+    let selectedCategory = '';
+
+    // Hàm render danh sách tài liệu ở trang chủ
+    function renderHomepageDocs() {
+      const grid = document.getElementById('homepage-docs-grid');
+      if (!grid) return;
+
+      let docs = State.getDocuments().filter(d => d.status === 'approved');
+
+      // Lọc theo Category nếu có chọn
+      if (selectedCategory) {
+        docs = docs.filter(d => d.categorySlug === selectedCategory);
+      }
+
+      // Sắp xếp theo Tab
+      if (activeTab === 'top') {
+        docs.sort((a, b) => b.downloads - a.downloads);
+      } else {
+        // Mới cập nhật (id của chúng ta được tạo theo thời gian tự tăng)
+        docs.sort((a, b) => b.date.localeCompare(a.date) || b.id.localeCompare(a.id));
+      }
+
+      if (docs.length === 0) {
+        grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--color-text-muted); font-weight:700;">Không tìm thấy tài liệu phù hợp trong danh mục này.</div>';
+        return;
+      }
+
+      grid.innerHTML = docs.map(doc => `
+        <div class="doc-card">
+          <div class="doc-thumbnail">
+            <span class="doc-badge">${doc.fileType.toUpperCase()}</span>
+            <div class="file-type-icon">${doc.fileType.toUpperCase()}</div>
+          </div>
+          <div class="doc-content">
+            <div class="doc-category">${doc.category}</div>
+            <h3 class="doc-title"><a href="document.html?id=${doc.id}">${doc.title}</a></h3>
+            <div class="doc-info">
+              <span class="doc-author">Bởi: ${doc.author}</span>
+              <span>💾 ${doc.downloads} lượt tải</span>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Chuyển tab học liệu
+    function switchDocTab(tab) {
+      activeTab = tab;
+      document.getElementById('tab-new').classList.toggle('active', tab === 'new');
+      document.getElementById('tab-top').classList.toggle('active', tab === 'top');
+      renderHomepageDocs();
+    }
+
+    // Lọc theo chuyên mục danh mục học liệu
+    function filterCategory(slug) {
+      selectedCategory = slug;
+      
+      // Update link navs active
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('onclick') && link.getAttribute('onclick').includes(slug)) {
+          link.classList.add('active');
+        }
+      });
+      
+      const docArea = document.getElementById('documents-area');
+      if (docArea) {
+        docArea.scrollIntoView({ behavior: 'smooth' });
+      }
+      renderHomepageDocs();
+    }
+
+    // Đăng ký tương tác Tìm kiếm ở navbar và hero
+    document.addEventListener('DOMContentLoaded', () => {
+      renderHomepageDocs();
+
+      // Form tìm kiếm ở Hero
+      const heroSearchForm = document.getElementById('hero-search-form');
+      if (heroSearchForm) {
+        heroSearchForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const query = document.getElementById('hero-search-input').value.toLowerCase().trim();
+          performSearch(query);
+        });
+      }
+
+      // Input tìm kiếm ở Navbar
+      const navSearchInput = document.getElementById('navbar-search-input');
+      if (navSearchInput) {
+        navSearchInput.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') {
+            performSearch(navSearchInput.value.toLowerCase().trim());
+          }
+        });
+      }
+    });
+
+    function performSearch(query) {
+      if (!query) {
+        renderHomepageDocs();
+        return;
+      }
+
+      const grid = document.getElementById('homepage-docs-grid');
+      if (!grid) return;
+
+      const matchedDocs = State.getDocuments().filter(d => 
+        d.status === 'approved' && 
+        (d.title.toLowerCase().includes(query) || d.description.toLowerCase().includes(query))
+      );
+
+      document.getElementById('documents-area').scrollIntoView({ behavior: 'smooth' });
+
+      if (matchedDocs.length === 0) {
+        grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--color-text-muted); font-weight:700;">Không tìm thấy tài liệu nào khớp với từ khóa "${query}".</div>`;
+        return;
+      }
+
+      grid.innerHTML = matchedDocs.map(doc => `
+        <div class="doc-card">
+          <div class="doc-thumbnail">
+            <span class="doc-badge">${doc.fileType.toUpperCase()}</span>
+            <div class="file-type-icon">${doc.fileType.toUpperCase()}</div>
+          </div>
+          <div class="doc-content">
+            <div class="doc-category">${doc.category}</div>
+            <h3 class="doc-title"><a href="document.html?id=${doc.id}">${doc.title}</a></h3>
+            <div class="doc-info">
+              <span class="doc-author">Bởi: ${doc.author}</span>
+              <span>💾 ${doc.downloads} lượt tải</span>
+            </div>
+          </div>
+        </div>
+      `).join('');
+      
+      showToast(`Đã tìm thấy ${matchedDocs.length} tài liệu!`, "success");
+    }
+  </script>
+</body>
+</html>

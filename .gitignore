@@ -1,0 +1,41 @@
+# Exclude Google Antigravity Agent metadata and runtime files
+.agent/
+.Agent/
+.agent
+.Agent
+/agents/
+/rules/
+/scripts/
+/skills/
+/tasks/
+/workflows/
+mcp_config.json
+/brain/
+.system_generated/
+/scratch/
+/task.md
+/implementation_plan.md
+/walkthrough.md
+.shared/
+
+# IDE & OS files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.DS_Store
+Thumbs.db
+
+# Node dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Logs & temp files
+*.log
+tmp/
+temp/
